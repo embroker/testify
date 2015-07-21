@@ -499,6 +499,22 @@ func NotEqual(t TestingT, expected, actual interface{}, msgAndArgs ...interface{
 
 }
 
+// NotEqualValues asserts that two objects are not equal
+//
+//    assert.NotEqualValues(t, uint32(123), int32(123), "123 and 123 should not be equal")
+//
+// Returns whether the assertion was successful (true) or not (false).
+func NotEqualValues(t TestingT, expected, actual interface{}, msgAndArgs ...interface{}) bool {
+
+	if ObjectsAreEqualValues(expected, actual) {
+		return Fail(t, fmt.Sprintf("Equal: %#v (expected everything but)\n"+
+			"        == %#v (actual)", expected, actual), msgAndArgs...)
+	}
+
+	return true
+
+}
+
 // containsElement try loop over the list check if the list includes the element.
 // return (false, false) if impossible.
 // return (true, false) if element was not found.

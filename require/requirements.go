@@ -3,7 +3,7 @@ package require
 import (
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/embroker/testify/assert"
 )
 
 type TestingT interface {
@@ -132,6 +132,12 @@ func False(t TestingT, value bool, msgAndArgs ...interface{}) {
 //    require.NotEqual(t, obj1, obj2, "two objects shouldn't be equal")
 func NotEqual(t TestingT, expected, actual interface{}, msgAndArgs ...interface{}) {
 	if !assert.NotEqual(t, expected, actual, msgAndArgs...) {
+		t.FailNow()
+	}
+}
+
+func NotEqualValues(t TestingT, expected, actual interface{}, msgAndArgs ...interface{}) {
+	if !assert.NotEqualValues(t, expected, actual, msgAndArgs...) {
 		t.FailNow()
 	}
 }
